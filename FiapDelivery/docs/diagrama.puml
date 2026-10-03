@@ -1,0 +1,53 @@
+@startuml
+abstract class Veiculo {
+  - placa : String
+  - capacidadeKg : double
+  # Veiculo(placa : String, capacidadeKg : double)
+  + getPlaca() : String
+  + setPlaca(placa : String) : void
+  + getCapacidadeKg() : double
+  + setCapacidadeKg(capacidadeKg : double) : void
+  + suportaPeso(pesoKg : double) : boolean
+  + {abstract} getTipo() : String
+}
+class Caminhao {
+  - quantidadeEixos : int
+  + Caminhao(placa : String, capacidadeKg : double, quantidadeEixos : int)
+  + getQuantidadeEixos() : int
+  + setQuantidadeEixos(q : int) : void
+  + getTipo() : String
+}
+class Moto {
+  - possuiBau : boolean
+  + Moto(placa : String, capacidadeKg : double, possuiBau : boolean)
+  + isPossuiBau() : boolean
+  + setPossuiBau(b : boolean) : void
+  + getTipo() : String
+}
+class Pacote {
+  - codigo : String
+  - pesoKg : double
+  - status : StatusPacote
+  + Pacote(codigo : String, pesoKg : double)
+  + getCodigo() : String
+  + getPesoKg() : double
+  + getStatus() : StatusPacote
+  + atualizarStatus(novoStatus : StatusPacote) : void
+}
+enum StatusPacote {
+  PENDENTE
+  EM_TRANSITO
+  ENTREGUE
+}
+class Rota {
+  - pacote : Pacote
+  - veiculo : Veiculo
+  + Rota(pacote : Pacote, veiculo : Veiculo)
+  + iniciarEntrega() : void
+}
+Veiculo <|-- Caminhao
+Veiculo <|-- Moto
+Rota --> "1" Pacote : pacote
+Rota --> "1" Veiculo : veiculo
+Pacote --> StatusPacote
+@enduml
